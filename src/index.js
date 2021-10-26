@@ -9,6 +9,7 @@
 
 import "./main.css";
 import ToolboxIcon from "./svg/toolbox.svg";
+import { debounce } from "debounce";
 
 export default class YoutubeEmbed {
   /**
@@ -74,8 +75,9 @@ export default class YoutubeEmbed {
     });
 
     const embedIsReady = this.embedIsReady(this.wrapper);
-    embedIsReady.then(() => {});
-    return this.wrapper;
+    embedIsReady.then(() => {
+      return this.wrapper;
+    });
   }
 
   /**
@@ -138,19 +140,18 @@ export default class YoutubeEmbed {
       caption: caption ? caption.innerHTML : "",
     };
   }
-  embedIsReady(targetNode) {
+  async embedIsReady(targetNode) {
     const PRELOADER_DELAY = 450;
 
     let observer = null;
 
-    return new Promise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       observer = new MutationObserver(debounce(resolve, PRELOADER_DELAY));
       observer.observe(targetNode, {
         childList: true,
         subtree: true,
       });
-    }).then(() => {
-      observer.disconnect();
     });
+    observer.disconnect();
   }
 }
