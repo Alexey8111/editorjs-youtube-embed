@@ -96,7 +96,7 @@ export default class YoutubeEmbed {
     plyrContainer.classList.add("video-wrapper");
 
     const iframe = document.createElement("iframe");
-    this.embed = `https://www.youtube.com/embed/${videoId}`
+    this.embed = `https://www.youtube.com/embed/${videoId}`;
     iframe.setAttribute("src", this.embed);
     iframe.setAttribute("allowfullscreen", true);
 
@@ -129,6 +129,7 @@ export default class YoutubeEmbed {
   save(blockContent) {
     const caption = blockContent.querySelector(`.${this.CSS.caption}`);
     return {
+      service: "youtube",
       embed: this.embed,
       source: this.source,
       caption: caption ? caption.innerHTML : "",
