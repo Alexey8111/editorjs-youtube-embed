@@ -37,7 +37,8 @@ export default class YoutubeEmbed {
     this.readOnly = readOnly;
 
     this.wrapper = null;
-    this.url = null;
+    this.source = null;
+    this.embed = null;
     this.caption = "";
     this.isEdited = false;
   }
@@ -58,7 +59,7 @@ export default class YoutubeEmbed {
     this.wrapper = document.createElement("div");
     const input = document.createElement("input");
     input.value = this.data && this.data.url ? this.data.url : "";
-    this.url = input.value;
+    this.source = input.value;
     input.placeholder = "Вставьте сюда url видео с YouTube ...";
 
     this.wrapper.classList.add("block-wrapper");
@@ -68,7 +69,7 @@ export default class YoutubeEmbed {
     input.addEventListener("change", (event) => {
       this.isEdited = true;
 
-      this.url = input.value;
+      this.source = input.value;
       this._createIframe(input.value);
     });
     return this.wrapper;
@@ -95,7 +96,8 @@ export default class YoutubeEmbed {
     plyrContainer.classList.add("video-wrapper");
 
     const iframe = document.createElement("iframe");
-    iframe.setAttribute("src", `https://www.youtube.com/embed/${videoId}`);
+    this.embed = `https://www.youtube.com/embed/${videoId}`
+    iframe.setAttribute("src", this.embed);
     iframe.setAttribute("allowfullscreen", true);
 
     plyrContainer.appendChild(iframe);
@@ -125,11 +127,11 @@ export default class YoutubeEmbed {
    * @returns {object}
    */
   save(blockContent) {
-    const caption =
-      blockContent.querySelector(`.${this.CSS.caption}`);
+    const caption = blockContent.querySelector(`.${this.CSS.caption}`);
     return {
-      url: this.url,
-      caption: caption ? caption.innerHTML : '',
+      embed: this.embed,
+      source: this.source,
+      caption: caption ? caption.innerHTML : "",
     };
   }
 }
