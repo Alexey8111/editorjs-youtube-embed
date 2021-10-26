@@ -72,6 +72,7 @@ export default class YoutubeEmbed {
       this.source = input.value;
       this._createIframe(input.value);
     });
+    console.log('test render() this.wrapper', this.wrapper);
     return this.wrapper;
   }
 
