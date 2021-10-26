@@ -72,7 +72,9 @@ export default class YoutubeEmbed {
       this.source = input.value;
       this._createIframe(input.value);
     });
-    console.log('test render() this.wrapper', this.wrapper);
+
+    const embedIsReady = this.embedIsReady(this.wrapper);
+    embedIsReady.then(() => {});
     return this.wrapper;
   }
 
@@ -135,5 +137,20 @@ export default class YoutubeEmbed {
       source: this.source,
       caption: caption ? caption.innerHTML : "",
     };
+  }
+  embedIsReady(targetNode) {
+    const PRELOADER_DELAY = 450;
+
+    let observer = null;
+
+    return new Promise((resolve, reject) => {
+      observer = new MutationObserver(debounce(resolve, PRELOADER_DELAY));
+      observer.observe(targetNode, {
+        childList: true,
+        subtree: true,
+      });
+    }).then(() => {
+      observer.disconnect();
+    });
   }
 }
