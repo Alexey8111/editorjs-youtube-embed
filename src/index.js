@@ -38,6 +38,7 @@ export default class YoutubeEmbed {
 
     this.wrapper = null;
     this.url = null;
+    this.caption = '';
     this.isEdited = false;
   }
   get CSS() {
@@ -125,8 +126,10 @@ export default class YoutubeEmbed {
    */
   save(blockContent) {
     const input = blockContent.querySelector("input");
+    const caption = blockContent.querySelector(this.CSS.caption);
     return {
       url: this.url,
+      caption: caption.innerHTML
     };
   }
 }
