@@ -40,6 +40,12 @@ export default class YoutubeEmbed {
     this.url = null;
     this.isEdited = false;
   }
+  get CSS() {
+    return {
+      input: this.api.styles.input,
+      caption: 'embed-tool__caption',
+    };
+  }
 
   /**
    *
@@ -52,7 +58,8 @@ export default class YoutubeEmbed {
     this.wrapper = document.createElement("div");
     const input = document.createElement("input");
     const caption = document.createElement("div");
-    caption.contentEditable = !this.readOnly;
+    caption.classList.add(this.CSS.input, this.CSS.caption);
+    caption.contentEditable = true;
     caption.dataset.placeholder = "Введите описание";
     input.value = this.data && this.data.url ? this.data.url : "";
     this.url = input.value;
