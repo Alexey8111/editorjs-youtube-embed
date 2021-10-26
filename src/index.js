@@ -126,7 +126,7 @@ export default class YoutubeEmbed {
    */
   save(blockContent) {
     const input = blockContent.querySelector("input");
-    const caption = blockContent.querySelector(`.${this.CSS.caption}`);
+    const caption = blockContent.querySelector(`.${this.CSS.caption}`) || '';
     return {
       url: this.url,
       caption: caption.innerHTML
