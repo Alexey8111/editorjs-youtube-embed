@@ -38,12 +38,12 @@ export default class YoutubeEmbed {
 
     this.wrapper = null;
     this.url = null;
-    this.caption = '';
+    this.caption = "";
     this.isEdited = false;
   }
   get CSS() {
     return {
-      caption: 'embed-tool__caption',
+      caption: "embed-tool__caption",
     };
   }
 
@@ -101,7 +101,7 @@ export default class YoutubeEmbed {
     plyrContainer.appendChild(iframe);
 
     const caption = document.createElement("div");
-    caption.classList.add('cdx-input', this.CSS.caption);
+    caption.classList.add("cdx-input", this.CSS.caption);
     caption.contentEditable = true;
     caption.dataset.placeholder = "Введите описание";
     this.wrapper.appendChild(plyrContainer);
@@ -125,11 +125,11 @@ export default class YoutubeEmbed {
    * @returns {object}
    */
   save(blockContent) {
-    const input = blockContent.querySelector("input");
-    const caption = blockContent.querySelector(`.${this.CSS.caption}`).value || '';
+    const caption =
+      blockContent.querySelector(`.${this.CSS.caption}`).innerHTML || "";
     return {
-      url: input.value,
-      caption: caption
+      url: this.url,
+      caption: caption,
     };
   }
 }
