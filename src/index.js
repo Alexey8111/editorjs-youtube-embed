@@ -38,12 +38,12 @@ export default class YoutubeEmbed {
 
     this.wrapper = null;
     this.url = null;
-    this.caption = '';
+    this.caption = "";
     this.isEdited = false;
   }
   get CSS() {
     return {
-      caption: 'embed-tool__caption',
+      caption: "embed-tool__caption",
     };
   }
 
@@ -82,7 +82,9 @@ export default class YoutubeEmbed {
    *
    */
   _createIframe(url) {
-    const videoId = url.match(/(?<=v=)[a-zA-Z0-9_]+(?=\&?)/);
+    const videoId = url.match(
+      /(?:https?:\/\/)?(?:www\.)?(?:(?:youtu\.be\/)|(?:youtube\.com)\/(?:v\/|u\/\w\/|embed\/|watch))(?:(?:\?v=)?([^#&?=]*))?((?:[?&]\w*=\w*)*)/
+    );
     if (videoId == null) {
       if (this.isEdited) {
         this.wrapper.querySelector("input").classList.add("invalid");
@@ -101,7 +103,7 @@ export default class YoutubeEmbed {
     plyrContainer.appendChild(iframe);
 
     const caption = document.createElement("div");
-    caption.classList.add('cdx-input', this.CSS.caption);
+    caption.classList.add("cdx-input", this.CSS.caption);
     caption.contentEditable = true;
     caption.dataset.placeholder = "Введите описание";
     this.wrapper.appendChild(plyrContainer);
@@ -126,10 +128,10 @@ export default class YoutubeEmbed {
    */
   save(blockContent) {
     const input = blockContent.querySelector("input");
-    const caption = blockContent.querySelector(`.${this.CSS.caption}`) || '';
+    const caption = blockContent.querySelector(`.${this.CSS.caption}`) || "";
     return {
       url: this.url,
-      caption: caption.innerHTML
+      caption: caption.innerHTML,
     };
   }
 }
