@@ -33,19 +33,22 @@ export default class YoutubeEmbed {
    * @param {data: DelimiterData} — previously saved data
    *
    */
-  constructor({ data, config, api, readOnly }) {
+  constructor({ data, api, readOnly }) {
+    this.api = api;
     this.data = data;
     this.readOnly = readOnly;
-
+    this.element = null;
     this.wrapper = null;
     this.source = null;
     this.embed = null;
     this.caption = "";
     this.isEdited = false;
   }
+
   get CSS() {
     return {
       caption: "embed-tool__caption",
+      containerLoading: "embed-tool--loading",
     };
   }
 
@@ -68,6 +71,7 @@ export default class YoutubeEmbed {
     this._createIframe(input.value);
 
     input.addEventListener("change", (event) => {
+      console.log("test change", event);
       this.isEdited = true;
 
       this.source = input.value;
@@ -75,9 +79,7 @@ export default class YoutubeEmbed {
     });
 
     const embedIsReady = this.embedIsReady(this.wrapper);
-    embedIsReady.then(() => {
-      
-    });
+    embedIsReady.then(() => {});
     return this.wrapper;
   }
 
