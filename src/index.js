@@ -126,10 +126,10 @@ export default class YoutubeEmbed {
    */
   save(blockContent) {
     const input = blockContent.querySelector("input");
-    const caption = blockContent.querySelector(`.${this.CSS.caption}`) || '';
+    const caption = blockContent.querySelector(`.${this.CSS.caption}`).value || '';
     return {
-      url: this.url,
-      caption: caption.innerHTML
+      url: input.value,
+      caption: caption
     };
   }
 }
