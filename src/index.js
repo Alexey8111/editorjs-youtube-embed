@@ -48,7 +48,6 @@ export default class YoutubeEmbed {
   get CSS() {
     return {
       caption: "embed-tool__caption",
-      containerLoading: "embed-tool--loading",
     };
   }
 
@@ -60,27 +59,27 @@ export default class YoutubeEmbed {
    * @public
    */
   render() {
-    this.wrapper = document.createElement("div");
+    const container = document.createElement("div");
     const input = document.createElement("input");
     input.value = this.data && this.data.url ? this.data.url : "";
     this.source = input.value;
     input.placeholder = "Вставьте сюда url видео с YouTube ...";
 
-    this.wrapper.classList.add("block-wrapper");
-    this.wrapper.appendChild(input);
+    container.classList.add("block-wrapper");
+    container.appendChild(input);
     this._createIframe(input.value);
 
     input.addEventListener("change", (event) => {
-      console.log("test change", event);
       this.isEdited = true;
 
       this.source = input.value;
       this._createIframe(input.value);
     });
 
-    const embedIsReady = this.embedIsReady(this.wrapper);
+    const embedIsReady = this.embedIsReady(container);
     embedIsReady.then(() => {});
-    return this.wrapper;
+    this.wrapper = container
+    return container;
   }
 
   /**
