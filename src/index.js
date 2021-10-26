@@ -101,7 +101,7 @@ export default class YoutubeEmbed {
     plyrContainer.appendChild(iframe);
 
     const caption = document.createElement("div");
-    caption.classList.add(this.CSS.caption);
+    caption.classList.add('cdx-input', this.CSS.caption);
     caption.contentEditable = true;
     caption.dataset.placeholder = "Введите описание";
     this.wrapper.appendChild(plyrContainer);
