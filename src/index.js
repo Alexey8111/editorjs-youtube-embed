@@ -76,8 +76,9 @@ export default class YoutubeEmbed {
 
     const embedIsReady = this.embedIsReady(this.wrapper);
     embedIsReady.then(() => {
-      return this.wrapper;
+      
     });
+    return this.wrapper;
   }
 
   /**
