@@ -56,17 +56,12 @@ export default class YoutubeEmbed {
   render() {
     this.wrapper = document.createElement("div");
     const input = document.createElement("input");
-    const caption = document.createElement("div");
-    caption.classList.add(this.CSS.caption);
-    caption.contentEditable = true;
-    caption.dataset.placeholder = "Введите описание";
     input.value = this.data && this.data.url ? this.data.url : "";
     this.url = input.value;
     input.placeholder = "Вставьте сюда url видео с YouTube ...";
 
     this.wrapper.classList.add("block-wrapper");
     this.wrapper.appendChild(input);
-    this.wrapper.appendChild(caption);
     this._createIframe(input.value);
 
     input.addEventListener("change", (event) => {
@@ -103,7 +98,13 @@ export default class YoutubeEmbed {
     iframe.setAttribute("allowfullscreen", true);
 
     plyrContainer.appendChild(iframe);
+
+    const caption = document.createElement("div");
+    caption.classList.add(this.CSS.caption);
+    caption.contentEditable = true;
+    caption.dataset.placeholder = "Введите описание";
     this.wrapper.appendChild(plyrContainer);
+    this.wrapper.appendChild(caption);
   }
 
   /**
