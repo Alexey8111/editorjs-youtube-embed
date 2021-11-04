@@ -93,7 +93,7 @@ export default class YoutubeEmbed {
     const regex =
       /(?:https?:\/\/)?(?:www\.)?(?:(?:youtu\.be\/)|(?:youtube\.com)\/(?:v\/|u\/\w\/|embed\/|watch))(?:(?:\?v=)?([^#&?=]*))?((?:[?&]\w*=\w*)*)/;
     const videoId = regex.exec(url);
-    console.log(videoId);
+    console.log(videoId[1]);
     if (videoId == null) {
       if (this.isEdited) {
         this.wrapper.querySelector("input").classList.add("invalid");
