@@ -78,7 +78,7 @@ export default class YoutubeEmbed {
 
     const embedIsReady = this.embedIsReady(container);
     embedIsReady.then(() => {});
-    this.wrapper = container
+    this.wrapper = container;
     return container;
   }
 
@@ -90,7 +90,10 @@ export default class YoutubeEmbed {
    *
    */
   _createIframe(url) {
-    const videoId = url.match(/(?<=v=)[a-zA-Z0-9_]+(?=\&?)/);
+    const regex =
+      /(?:https?:\/\/)?(?:www\.)?(?:(?:youtu\.be\/)|(?:youtube\.com)\/(?:v\/|u\/\w\/|embed\/|watch))(?:(?:\?v=)?([^#&?=]*))?((?:[?&]\w*=\w*)*)/;
+    const videoId = regex.exec(url);
+    console.log(videoId);
     if (videoId == null) {
       if (this.isEdited) {
         this.wrapper.querySelector("input").classList.add("invalid");
